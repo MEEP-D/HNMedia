@@ -14,15 +14,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Create dots for each slide
-    function createDots() {
-        slides.forEach((_, index) => {
-            const dot = document.createElement('div');
-            dot.classList.add('slider-dot');
-            if (index === 0) dot.classList.add('active');
-            dot.addEventListener('click', () => goToSlide(index));
-            dotsContainer.appendChild(dot);
-        });
-    }
+    // function createDots() {
+    //     slides.forEach((_, index) => {
+    //         const dot = document.createElement('div');
+    //         dot.classList.add('slider-dot');
+    //         if (index === 0) dot.classList.add('active');
+    //         dot.addEventListener('click', () => goToSlide(index));
+    //         dotsContainer.appendChild(dot);
+    //     });
+    // }
     
     // Go to specific slide
     function goToSlide(index) {
@@ -90,6 +90,17 @@ let currentSlide = 0;
 const heroSlides = document.querySelectorAll('.hero-slide');
 const dotsContainer = document.querySelector('.slider-dots');
 let autoSlideInterval;
+
+function createDots() {
+    slides.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.classList.add('slider-dot');
+        if (index === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToSlide(index));
+        dotsContainer.appendChild(dot);
+    });
+}
+
 function goToSlide(index) {
     slides[currentSlide].classList.remove('active');
     dotsContainer.children[currentSlide].classList.remove('active');
@@ -132,6 +143,17 @@ document.addEventListener('DOMContentLoaded', function() {
     if (slides.length === 0) {
         console.warn('No slides found in hero section');
         return;
+    }
+
+    function createDots() {
+        if (!dotsContainer) return;
+        slides.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.classList.add('slider-dot');
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(index));
+            dotsContainer.appendChild(dot);
+        });
     }
 
     function goToSlide(index) {
