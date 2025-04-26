@@ -1,137 +1,66 @@
+const logoSrc = '/Images/tiktok3.png'; // đường dẫn ảnh logo
+const maxImages = 100; // số lượng ảnh rơi cùng lúc
+const maxLogos = 10; // số lượng logo tối đa
+
+function createRainImage() {
+    const img = document.createElement('img');
+    img.src = logoSrc; // Corrected to use logoSrc
+    img.className = 'rain-image';
+    
+    // Tạo vị trí ngẫu nhiên theo chiều ngang
+    img.style.left = Math.random() * window.innerWidth + 'px';
+    img.style.top = '-100px'; // bắt đầu trên đỉnh
+    img.style.width = (30 + Math.random() * 70) + 'px'; // kích cỡ ảnh từ 30px đến 70px
+    img.style.zIndex = '9999'; // Ensure the image is on the topmost layer
+    const randomRotation = 0 + Math.random() * 30;
+    img.style.transform = `rotate(${randomRotation}deg)`;// Rotate the image by 20 degrees
+
+    document.body.appendChild(img);
+  
+    // Tạo hiệu ứng rơi
+    const fallDuration = 9 + Math.random() * 10; // thời gian rơi từ 3s ~ 5s
+    img.style.transition = `top ${fallDuration}s linear`;
+  
+    // Bắt đầu rơi
+    setTimeout(() => {
+        img.style.top = document.body.scrollHeight + 'px'; // Rơi xuống cuối trang
+      }, 100);
+  
+    // Xóa ảnh sau khi rơi xong
+    setTimeout(() => {
+      img.remove();
+    }, fallDuration * 1000 + 100);
+  }
+
+// Tạo ảnh liên tục như mưa
+setInterval(() => {
+  if (document.querySelectorAll('.rain-image').length < maxImages) {
+    createRainImage();
+  }
+}, 120); // mỗi 120ms tạo 1 ảnh mới
+
+// Placeholder for createLogo function
+function createLogo() {
+  // Implement logo creation logic here
+}
+
+// Tạo logo liên tục mỗi 300ms
+setInterval(() => {
+  if (document.querySelectorAll('.logo').length < maxLogos) {
+    createLogo();
+  }
+}, 300);
+
 // Hero Slider
-document.addEventListener('DOMContentLoaded', function() {
-    let currentSlide = 0;
-    const slides = document.querySelectorAll('.hero-slide');
-    const dotsContainer = document.querySelector('.slider-dots');
-    let autoSlideInterval;
-    
-    // Set background images from data attributes
-    slides.forEach(slide => {
-        const bgImage = slide.getAttribute('data-bg-image');
-        if (bgImage) {
-            slide.style.backgroundImage = `url('${bgImage}')`;
-        }
+window.addEventListener('load', function() {
+    // Ensure scrolling is enabled
+    document.body.style.overflow = 'auto';
+
+    // Check for any event listeners that might prevent scrolling
+    window.addEventListener('scroll', function(event) {
+        // If any condition is met that should prevent scrolling, use preventDefault
+        // event.preventDefault(); // Uncomment if you need to prevent scrolling under certain conditions
     });
-    
-    // Create dots for each slide
-    // function createDots() {
-    //     slides.forEach((_, index) => {
-    //         const dot = document.createElement('div');
-    //         dot.classList.add('slider-dot');
-    //         if (index === 0) dot.classList.add('active');
-    //         dot.addEventListener('click', () => goToSlide(index));
-    //         dotsContainer.appendChild(dot);
-    //     });
-    // }
-    
-    // Go to specific slide
-    function goToSlide(index) {
-        slides[currentSlide].classList.remove('active');
-        if (dotsContainer && dotsContainer.children[currentSlide]) {
-            dotsContainer.children[currentSlide].classList.remove('active');
-        }
-        
-        currentSlide = (index + slides.length) % slides.length;
-        
-        slides[currentSlide].classList.add('active');
-        if (dotsContainer && dotsContainer.children[currentSlide]) {
-            dotsContainer.children[currentSlide].classList.add('active');
-        }
-    }
-    
-    // Go to next slide
-    function nextSlide() {
-        goToSlide(currentSlide + 1);
-    }
-    
-    // Go to previous slide
-    function prevSlide() {
-        goToSlide(currentSlide - 1);
-    }
-    
-    // Start auto sliding
-    function startAutoSlide() {
-        autoSlideInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
-    }
-    
-    // Initialize slider
-    if (slides.length > 0) {
-        createDots();
-        startAutoSlide();
-        
-        // Pause on hover
-        const hero = document.querySelector('.hero');
-        if (hero) {
-            hero.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
-            hero.addEventListener('mouseleave', startAutoSlide);
-        }
-    }
-    
-    // Add event listeners for arrow controls
-    const prevButton = document.querySelector('.slider-arrow.prev');
-    const nextButton = document.querySelector('.slider-arrow.next');
-    
-    if (prevButton && nextButton) {
-        prevButton.addEventListener('click', function() {
-            clearInterval(autoSlideInterval); // Stop auto sliding
-            prevSlide();
-            startAutoSlide(); // Restart auto sliding
-        });
-        
-        nextButton.addEventListener('click', function() {
-            clearInterval(autoSlideInterval); // Stop auto sliding
-            nextSlide();
-            startAutoSlide(); // Restart auto sliding
-        });
-    }
-});
-
-let currentSlide = 0;
-const heroSlides = document.querySelectorAll('.hero-slide');
-const dotsContainer = document.querySelector('.slider-dots');
-let autoSlideInterval;
-
-function createDots() {
-    slides.forEach((_, index) => {
-        const dot = document.createElement('div');
-        dot.classList.add('slider-dot');
-        if (index === 0) dot.classList.add('active');
-        dot.addEventListener('click', () => goToSlide(index));
-        dotsContainer.appendChild(dot);
-    });
-}
-
-function goToSlide(index) {
-    slides[currentSlide].classList.remove('active');
-    dotsContainer.children[currentSlide].classList.remove('active');
-    
-    currentSlide = (index + slides.length) % slides.length;
-    
-    slides[currentSlide].classList.add('active');
-    dotsContainer.children[currentSlide].classList.add('active');
-}
-
-function nextSlide() {
-    goToSlide(currentSlide + 1);
-}
-
-function startAutoSlide() {
-    autoSlideInterval = setInterval(nextSlide, 5000);
-}
-
-// Initialize slider
-document.addEventListener('DOMContentLoaded', () => {
-    createDots();
-    startAutoSlide();
-    
-    // Pause on hover
-    const hero = document.querySelector('.hero');
-    hero.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
-    hero.addEventListener('mouseleave', startAutoSlide);
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Hero Slider
     const slides = document.querySelectorAll('.hero-slide');
     const dotsContainer = document.querySelector('.slider-dots');
     const prevButton = document.querySelector('.slider-arrow.prev');
@@ -174,16 +103,14 @@ document.addEventListener('DOMContentLoaded', function() {
         goToSlide(currentSlide + 1);
     }
 
-    function prevSlide() {
-        goToSlide(currentSlide - 1);
-    }
-
     function startAutoSlide() {
-        autoSlideInterval = setInterval(nextSlide, 5000);
+        autoSlideInterval = setInterval(nextSlide, 1000); // Change interval to 2 seconds
     }
 
     createDots();
-    startAutoSlide();
+    // Start the first transition immediately
+    setTimeout(nextSlide, 500); // Start first transition after a short delay
+    startAutoSlide(); // Then continue with regular intervals
 
     if (hero) {
         hero.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
@@ -205,154 +132,63 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const contactForm = document.getElementById('contactForm');
-        const submitBtn = document.getElementById('submitBtn');
-        const popup = document.getElementById('popup');
-        const popupIcon = document.getElementById('popupIcon');
-        const popupTitle = document.getElementById('popupTitle');
-        const popupMessage = document.getElementById('popupMessage');
-        const popupCloseBtn = document.getElementById('popupCloseBtn');
-    
-        // Hàm hiển thị popup
-        function showPopup(isSuccess, message) {
-            if (isSuccess) {
-                popupIcon.textContent = '✓';
-                popupTitle.textContent = 'Gửi thành công!';
-                popupMessage.textContent = message || 'Cảm ơn bạn đã liên hệ. Chúng tôi sẽ phản hồi sớm nhất.';
-                popupIcon.style.color = '#4CAF50';
-            } else {
-                popupIcon.textContent = '✗';
-                popupTitle.textContent = 'Lỗi!';
-                popupMessage.textContent = message || 'Có lỗi xảy ra khi gửi thông tin.';
-                popupIcon.style.color = '#f44336';
-            }
-            popup.style.display = 'block';
+    const contactForm = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const popup = document.getElementById('popup');
+    const popupIcon = document.getElementById('popupIcon');
+    const popupTitle = document.getElementById('popupTitle');
+    const popupMessage = document.getElementById('popupMessage');
+    const popupCloseBtn = document.getElementById('popupCloseBtn');
+
+    // Hàm hiển thị popup
+    function showPopup(isSuccess, message) {
+        if (isSuccess) {
+            popupIcon.textContent = '✓';
+            popupTitle.textContent = 'Gửi thành công!';
+            popupMessage.textContent = message || 'Cảm ơn bạn đã liên hệ. Chúng tôi sẽ phản hồi sớm nhất.';
+            popupIcon.style.color = '#4CAF50';
+        } else {
+            popupIcon.textContent = '✗';
+            popupTitle.textContent = 'Lỗi!';
+            popupMessage.textContent = message || 'Có lỗi xảy ra khi gửi thông tin.';
+            popupIcon.style.color = '#f44336';
         }
-    
-        // Đóng popup
-        popupCloseBtn.addEventListener('click', function() {
-            popup.style.display = 'none';
-        });
-    
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const originalBtnText = submitBtn.textContent;
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Đang gửi...';
-            
-            fetch(this.action, {
-                method: 'POST',
-                body: new FormData(contactForm),
-                headers: {
-                    'Accept': 'application/json'
-                }
-            })
-            .then(response => {
-                if (response.ok) {
-                    showPopup(true); // Hiển thị popup thành công
-            contactForm.reset(); // Reset form
-            return response.json(); // Chỉ cần thiết nếu bạn muốn xử lý thêm
-                } else {
-                    throw new Error('Formspree returned status: ' + response.status);
-                }
-            })
-            .catch(error => {
-                showPopup(false, error.message);
-            })
-            .finally(() => {
-                submitBtn.disabled = false;
-                submitBtn.textContent = originalBtnText;
-            });
+        popup.style.display = 'block';
+    }
+
+    // Đóng popup
+    popupCloseBtn.addEventListener('click', function() {
+        popup.style.display = 'none';
+    });
+
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const originalBtnText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Đang gửi...';
+        
+        fetch(this.action, {
+            method: 'POST',
+            body: new FormData(contactForm),
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                showPopup(true);
+                contactForm.reset();
+            } else {
+                throw new Error('Formspree returned status: ' + response.status);
+            }
+        })
+        .catch(error => {
+            showPopup(false, error.message);
+        })
+        .finally(() => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalBtnText;
         });
     });
 });
-//     const submitButton = contactForm.querySelector('button[type="submit"]');
-//     const popup = document.querySelector('.popup-notification');
-//     const overlay = document.querySelector('.popup-overlay');
-//     const closeBtn = popup.querySelector('.popup-button');
-
-//     function showPopup(message, isSuccess = true) {
-//         if (!popup || !overlay) return;
-//         popup.querySelector('.popup-title').textContent = isSuccess ? 'Gửi thành công!' : 'Lỗi';
-//         popup.querySelector('.popup-message').textContent = isSuccess 
-//             ? 'Cảm ơn bạn đã liên hệ. Chúng tôi sẽ phản hồi trong thời gian sớm nhất.'
-//             : message;
-//         popup.querySelector('.popup-icon').textContent = isSuccess ? '✓' : '✗';
-//         popup.classList.add('show');
-//         overlay.classList.add('show');
-//     }
-
-//     function hidePopup() {
-//         if (!popup || !overlay) return;
-//         popup.classList.remove('show');
-//         overlay.classList.remove('show');
-//     }
-
-//     if (closeBtn) closeBtn.addEventListener('click', hidePopup);
-//     if (overlay) overlay.addEventListener('click', hidePopup);
-
-//     function validateForm(name, email, phone) {
-//         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-//         const phoneRegex = /^\d{10,11}$/;
-//         if (!name.trim()) return 'Vui lòng nhập họ và tên';
-//         if (!emailRegex.test(email)) return 'Vui lòng nhập email hợp lệ';
-//         if (!phoneRegex.test(phone)) return 'Vui lòng nhập số điện thoại hợp lệ (10-11 số)';
-//         return null;
-//     }
-
-//     contactForm.addEventListener('submit', function(e) {
-//         e.preventDefault();
-    
-//         const name = document.getElementById('name').value;
-//         const email = document.getElementById('email').value;
-//         const phone = document.getElementById('phone').value;
-//         const message = document.getElementById('message').value;
-    
-//         // Validate form
-//         const validationError = validateForm(name, email, phone);
-//         if (validationError) {
-//             showPopup(validationError, false);
-//             return;
-//         }
-    
-//         // Disable button
-//         submitButton.disabled = true;
-//         const originalBtnText = submitButton.textContent;
-//         submitButton.textContent = 'Đang gửi...';
-    
-//         // Send email
-//         Email.send({
-//             SecureToken: "f60ead9f-0496-4851-97f0-a999c606fc3a", // Thay bằng token thực
-//             Host: "smtp.elasticemail.com",
-//             Username: "acduong4567@gmail.com",
-//             Password : "BFC5C3E86D1E25797BBA7F0FE5FA0BF58E2C",
-//             To: "acduong4567@gmail.com",
-//             From: "21111061398@hunre.edu.vn",
-//             Subject: `HN-Media Liên hệ mới từ ${name}`,
-//             Body: `
-//                 <h2>Thông tin liên hệ</h2>
-//                 <p><strong>Tên:</strong> ${name}</p>
-//                 <p><strong>Email:</strong> ${email}</p>
-//                 <p><strong>Điện thoại:</strong> ${phone}</p>
-//                 <p><strong>Nội dung:</strong> ${message}</p>
-//             `,
-//             IsHtml: true
-//         }).then(function(response) {
-//             console.log("Response:", response);
-//             if (response.includes("OK")) {
-//                 showPopup();
-//                 contactForm.reset();
-//             } else {
-//                 throw new Error(response);
-//             }
-//         }).catch(function(error) {
-//             console.error("Error:", error);
-//             showPopup("Lỗi gửi email: " + error.message, false);
-//         }).finally(function() {
-//             submitButton.disabled = false;
-//             submitButton.textContent = originalBtnText;
-//         });
-//     });
-// });

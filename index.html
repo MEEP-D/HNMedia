@@ -600,89 +600,106 @@
             </div>
         </div>
     </section>
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">Liên Hệ <span>Với Chúng Tôi</span></h2>
-            <div class="contact-container">
-                <div class="contact-info">
-                    <h3>Thông Tin Liên Hệ</h3>
-                    <div class="contact-item">
-                        <div class="contact-icon">📱</div>
-                        <p>Điện thoại: 0987 654 321</p>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">📧</div>
-                        <p>Email: info@tikshopacademy.com</p>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">🏠</div>
-                        <p>Địa chỉ: 123 Đường ABC, Quận XYZ, TP. Hồ Chí Minh</p>
-                    </div>
+   <!-- Contact Section -->
+<section id="contact" class="contact">
+    <div class="container">
+        <h2 class="section-title">Liên Hệ <span>Với Chúng Tôi</span></h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="contact-card">
+                    <h3><i class="fas fa-map-marker-alt"></i> Địa chỉ</h3>
+                    <p>123 Đường ABC, Quận XYZ, TP. Hồ Chí Minh</p>
                     
-                    <h3>Kết Nối Với Chúng Tôi</h3>
+                    <h3><i class="fas fa-clock"></i> Giờ làm việc</h3>
+                    <p>Thứ 2 - Thứ 6: 8:00 - 17:00<br>
+                    Thứ 7: 8:00 - 12:00</p>
+                </div>
+                
+                <div class="contact-card">
+                    <h3><i class="fas fa-phone-alt"></i> Điện thoại</h3>
+                    <p><a href="tel:0987654321">0987 654 321</a></p>
+                    
+                    <h3><i class="fas fa-envelope"></i> Email</h3>
+                    <p><a href="mailto:info@tikshopacademy.com">info@tikshopacademy.com</a></p>
+                </div>
+                
+                <div class="contact-card">
+                    <h3><i class="fas fa-share-alt"></i> Kết nối với chúng tôi</h3>
                     <div class="social-links">
-                        <a href="https://facebook.com/your-page" class="social-link" target="_blank">f</a>
-                        <a href="https://tiktok.com/@your-account" class="social-link" target="_blank">t</a>
-                        <a href="https://zalo.me/your-number" class="social-link" target="_blank">z</a>
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+                        <!-- <a href="#" class="social-link"><i class="fab fa-zalo"></i></a> -->
+                        <a href="#" class="social-link">
+                            <img src="/Images/icons8-zalo-48.png" alt="Zalo" style="width:24px; height:24px;">
+                        </a>
                     </div>
                 </div>
+            </div>
+            
+            <div class="contact-form-wrapper">
                 <div class="contact-form">
-                    <h3>Gửi Thông Tin Liên Hệ</h3>
+                    <h3 class="form-title">Gửi tin nhắn cho chúng tôi</h3>
+                    <p class="form-subtitle">Chúng tôi sẽ phản hồi trong thời gian sớm nhất</p>
+                    
                     <form id="contactForm" action="https://formspree.io/f/mwpopowr" method="POST">
-                        <div class="form-group">
-                            <input type="text" class="form-input" id="name" name="name" placeholder="Họ và tên" required>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" class="form-input" id="name" name="name" placeholder=" " required>
+                                <label for="name">Họ và tên</label>
+                                <span class="input-icon"><i class="fas fa-user"></i></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <input type="email" class="form-input" id="email" name="email" placeholder=" " required>
+                                <label for="email">Email</label>
+                                <span class="input-icon"><i class="fas fa-envelope"></i></span>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <input type="email" class="form-input" id="email" name="email" placeholder="Email" required>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="tel" class="form-input" id="phone" name="phone" placeholder=" " required>
+                                <label for="phone">Số điện thoại</label>
+                                <span class="input-icon"><i class="fas fa-phone"></i></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <select class="form-input" id="subject" name="subject" required>
+                                    <option value="" disabled selected></option>
+                                    <option value="Tư vấn khóa học">Tư vấn khóa học</option>
+                                    <option value="Hợp tác<">Hợp tác</option>
+                                    <option value="Khác">Khác</option>
+                                </select>
+                                <label for="subject">Chủ đề</label>
+                                <span class="input-icon"><i class="fas fa-tag"></i></span>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <input type="tel" class="form-input" id="phone" name="phone" placeholder="Số điện thoại" required>
+                        
+                        <div class="form-group full-width">
+                            <textarea class="form-input" id="message" name="message" placeholder=" " required></textarea>
+                            <label for="message">Nội dung tin nhắn</label>
+                            <span class="input-icon textarea-icon"><i class="fas fa-comment"></i></span>
                         </div>
-                        <div class="form-group">
-                            <textarea class="form-input" id="message" name="message" placeholder="Nội dung tin nhắn" required></textarea>
-                        </div>
-                        <!-- Thêm input ẩn cho reply-to (tùy chọn) -->
+                        
                         <input type="hidden" name="_replyto" id="replyTo">
-                        <!-- Thêm honeypot field chống spam (tùy chọn) -->
                         <input type="text" name="_gotcha" style="display:none">
-                        <button type="submit" class="btn" id="submitBtn">Gửi Ngay</button>
+                        
+                        <button type="submit" class="btn submit-btn" id="submitBtn">
+                            <span class="btn-text">Gửi tin nhắn</span>
+                            <span class="btn-icon"><i class="fas fa-paper-plane"></i></span>
+                        </button>
                     </form>
                 </div>
-                <div class="popup-notification" id="popup" style="display: none;">
-                    <div class="popup-content">
-                        <span class="popup-icon" id="popupIcon">✓</span>
-                        <h3 class="popup-title" id="popupTitle">Gửi thành công!</h3>
-                        <p class="popup-message" id="popupMessage">Cảm ơn bạn đã liên hệ. Chúng tôi sẽ phản hồi sớm nhất.</p>
-                        <button class="popup-close-btn" id="popupCloseBtn">Đóng</button>
-                    </div>
-                </div>
-                <!-- <div class="contact-form">
-                    <h3>Gửi Thông Tin Liên Hệ</h3>
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <input type="text" class="form-input" id="name" name="name" placeholder="Họ và tên" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" class="form-input" id="email" name="email" placeholder="Email" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="tel" class="form-input" id="phone" name="phone" placeholder="Số điện thoại" required>
-                        </div>
-                        <div class="form-group">
-                            <textarea class="form-input" id="message" name="message" placeholder="Nội dung tin nhắn" required></textarea>
-                        </div>
-                        <button type="submit" class="btn" id="submitBtn">Gửi Ngay</button>
-                    </form>
-                </div> -->
             </div>
         </div>
-    </section>
+    </div>
+    <!-- <img src="./Images/tiktok.jpg" alt="rain-image" class="rain-image"> -->
+</section>
 
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2025 TikShop Academy. Tất cả quyền được bảo lưu.</p>
+            <p>&copy; 2025 Hoài Nam- Media. Tất cả quyền được bảo lưu.</p>
         </div>
     </footer>
 </body>
