@@ -1498,299 +1498,326 @@ textarea.form-input {
         padding: 30px 20px;
     }
 }
-/* ... existing code ... */
+/* RESPONSIVE CSS CHO ĐIỆN THOẠI */
 
-/* Mobile Responsive Styles */
-@media (max-width: 576px) {
-    /* Header Styles */
-    .header-container {
-        padding: 10px 0;
-    }
-    
-    .logo {
-        font-size: 1.4rem;
-    }
-    
-    nav ul {
-        display: none; /* Hide regular nav on mobile */
-    }
-    
-    .mobile-menu {
-        display: block; /* Show mobile menu button */
-    }
-    
-    /* Mobile Navigation Menu */
-    .mobile-nav {
-        position: fixed;
-        top: 0;
-        left: -100%;
-        width: 80%;
-        height: 100vh;
-        background-color: var(--white);
-        z-index: 1000;
-        padding: 20px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        transition: left 0.3s ease;
-    }
-    
-    .mobile-nav.active {
-        left: 0;
-    }
-    
-    .mobile-nav ul {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-        margin-top: 50px;
-    }
-    
-    .mobile-nav ul li a {
-        display: block;
-        padding: 10px 0;
-        font-size: 1.1rem;
-    }
-    
-    .close-menu {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        font-size: 1.5rem;
-        background: none;
-        border: none;
-        cursor: pointer;
-    }
-    
-    /* Hero Section */
-    .hero {
-        height: 60vh;
-        padding: 0 15px;
-    }
-    
-    .hero h1 {
-        font-size: 2rem;
-    }
-    
-    .hero p {
-        font-size: 1rem;
-    }
-    
-    /* Section Spacing */
-    section {
-        padding: 50px 0;
-    }
-    
-    .section-title {
-        font-size: 1.8rem;
-        margin-bottom: 30px;
-    }
-    
-    /* Services & Products */
-    .service-card, .product-card {
-        padding: 20px;
-    }
-    
-    .service-icon {
-        font-size: 2.5rem;
-    }
-    
-    /* About Section */
-    .about-container {
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
-    
-    .about-content h2 {
-        font-size: 1.6rem;
-    }
-    
-    /* Hero Slider */
-    .hero-content {
-        padding: 0 15px;
-    }
-    
-    .slider-controls {
-        bottom: 15px;
-    }
-    
-    .slider-dot {
-        width: 10px;
-        height: 10px;
-    }
-    
-    .slider-arrow {
-        width: 35px;
-        height: 35px;
-    }
-    
-    /* Feedback Carousel */
-    .feedback-carousel {
-        padding: 40px 15px;
-        margin: 30px 0;
-    }
-    
-    .carousel-slide {
-        min-width: 100%;
-        margin: 0 5px;
-    }
-    
-    .carousel-track-container {
-        height: 300px;
-    }
-    
-    .carousel-button {
-        width: 35px;
-        height: 35px;
-    }
-    
-    .carousel-button.prev {
-        left: 10px;
-    }
-    
-    .carousel-button.next {
-        right: 10px;
-    }
-    
-    /* Feedback Cards */
-    .feedback-card {
-        padding: 20px;
-    }
-    
-    .feedback-avatar {
-        width: 60px;
-        height: 60px;
-    }
-    
-    .feedback-name {
-        font-size: 1.1rem;
-    }
-    
-    .feedback-content {
-        font-size: 1rem;
-    }
-    
-    .gallery-img {
-        width: 100px;
-        height: 100px;
-    }
-    
-    /* Contact Form */
-    .contact-form {
-        padding: 25px 15px;
-    }
-    
-    .form-title {
-        font-size: 1.5rem;
-    }
-    
-    .form-input {
-        padding: 12px 12px 12px 40px;
-    }
-    
-    .input-icon {
-        left: 12px;
-        top: 12px;
-    }
-    
-    .submit-btn {
-        padding: 12px 25px;
-    }
-    
-    /* Popup */
-    .popup-content {
-        padding: 30px 20px;
-    }
-    
-    .popup-icon {
-        width: 60px;
-        height: 60px;
-        font-size: 1.5rem;
-    }
-    
-    .popup-title {
-        font-size: 1.3rem;
-    }
-}
-
-/* Fix for video section on mobile */
-@media (max-width: 576px) {
-    .video-slider {
-        gap: 15px;
-    }
-    
-    .video-card {
-        min-width: 100%;
-    }
-    
-    .video-wrapper {
-        height: auto;
-    }
-    
-    .video-btn {
-        width: 100%;
-        padding: 10px 15px;
+/* Áp dụng cho tất cả màn hình điện thoại có chiều rộng tối đa 767px */
+@media only screen and (max-width: 767px) {
+    /* THIẾT LẬP CHUNG */
+    body {
         font-size: 14px;
     }
-    
-    /* TikTok Videos */
-    .tiktok-placeholder {
-        border-radius: 6px;
+
+    .container {
+        width: 95%;
+        padding: 0 10px;
     }
-    
-    .play-button {
+
+    .section-title {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .btn {
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+
+    /* HEADER */
+    header {
+        padding: 10px 0;
+    }
+
+    .header-container {
+        justify-content: space-between;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    /* Ẩn menu desktop và hiện menu mobile */
+    nav {
+        display: none;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background-color: #fff;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        z-index: 1000;
+    }
+
+    nav.active {
+        display: block;
+    }
+
+    nav ul {
+        flex-direction: column;
+        padding: 10px 0;
+    }
+
+    nav ul li {
+        width: 100%;
+        margin: 0;
+    }
+
+    nav ul li a {
+        padding: 12px 20px;
+        display: block;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+    }
+
+    .mobile-menu {
+        display: block;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    /* HERO SECTION */
+    .hero {
+        height: 80vh;
+    }
+
+    .hero-content {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .hero-content h1 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .hero-content p {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .slider-controls {
+        bottom: 20px;
+    }
+
+    .slider-arrow {
+        width: 30px;
+        height: 30px;
+        font-size: 12px;
+    }
+
+    /* SERVICES SECTION */
+    .services-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .service-card {
+        padding: 20px;
+    }
+
+    .service-icon {
+        font-size: 32px;
+        margin-bottom: 10px;
+    }
+
+    /* PRODUCTS SECTION */
+    .products-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .product-card {
+        flex-direction: column;
+    }
+
+    .product-img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .product-info {
+        padding: 15px;
+    }
+
+    /* ABOUT SECTION */
+    .about-container {
+        flex-direction: column;
+    }
+
+    .about-img {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .about-content {
+        width: 100%;
+    }
+
+    /* TESTIMONIALS SECTION */
+    .testimonial-card {
+        padding: 15px;
+    }
+
+    .testimonial-img {
         width: 60px;
         height: 60px;
-        font-size: 2rem;
     }
-    
-    /* Classes */
+
+    .testimonial-controls {
+        margin-top: 15px;
+    }
+
+    .testimonial-btn {
+        width: 35px;
+        height: 35px;
+    }
+
+    /* FEEDBACK GALLERY */
+    .carousel-container {
+        height: 300px;
+    }
+
+    .carousel-track-container {
+        width: 90%;
+    }
+
+    .carousel-button {
+        font-size: 18px;
+    }
+
+    .carousel-image {
+        height: 200px;
+    }
+
+    /* VIDEOS SECTION */
+    .videos-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .video-card {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .video-wrapper {
+        height: 200px;
+    }
+
+    /* TIKTOK VIDEOS */
+    #tiktok-videos .video-card {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .tiktok-placeholder {
+        height: 400px;
+    }
+
+    /* DETAILED FEEDBACK */
+    .feedback-card {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .feedback-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .feedback-avatar {
+        margin-bottom: 10px;
+        margin-right: 0;
+    }
+
+    .feedback-gallery {
+        flex-wrap: wrap;
+    }
+
+    .gallery-img {
+        width: calc(50% - 5px);
+        margin-bottom: 10px;
+    }
+
+    /* UPCOMING CLASSES */
     .class-card {
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    .class-date {
+        width: 80px;
+        height: 80px;
+        margin-right: 0;
+        margin-bottom: 15px;
+        align-self: center;
+    }
+
+    .class-info {
+        width: 100%;
+    }
+
+    .class-details {
+        flex-direction: column;
+    }
+
+    .class-details span {
+        margin-bottom: 5px;
+    }
+
+    .class-btn {
+        align-self: center;
+        margin-top: 15px;
+    }
+
+    /* CONTACT SECTION */
+    .contact-container {
+        flex-direction: column;
+    }
+
+    .contact-info, .contact-form-wrapper {
+        width: 100%;
+    }
+
+    .contact-info {
+        margin-bottom: 20px;
+    }
+
+    .contact-card {
+        padding: 15px;
         margin-bottom: 15px;
     }
-    
-    .class-date {
-        padding: 15px;
-        min-width: 100px;
+
+    .form-row {
+        flex-direction: column;
     }
-    
-    .day {
-        font-size: 2rem;
+
+    .form-group {
+        width: 100%;
+        margin-bottom: 15px;
     }
-    
-    .class-info {
-        padding: 15px;
-    }
-    
-    .class-title {
-        font-size: 1.1rem;
+
+    /* FOOTER */
+    footer {
+        padding: 15px 0;
+        text-align: center;
     }
 }
 
-/* Touch-friendly improvements */
-@media (max-width: 576px) {
-    /* Increase touch targets */
-    nav ul li a, 
-    .btn,
-    .carousel-button,
-    .video-btn,
-    .form-input,
-    .submit-btn {
-        padding: 12px 20px;
+/* Điều chỉnh thêm cho màn hình siêu nhỏ (dưới 375px) */
+@media only screen and (max-width: 375px) {
+    .hero-content h1 {
+        font-size: 20px;
     }
-    
-    /* Adjust font sizes for readability */
-    body {
-        font-size: 16px;
+
+    .section-title {
+        font-size: 20px;
     }
-    
-    /* Improve form usability on mobile */
-    .form-input:focus + label,
-    .form-input:not(:placeholder-shown) + label {
-        transform: translateY(-20px) scale(0.9);
-        left: 35px;
-    }
-    
-    /* Fix for overflow issues */
-    .container {
-        overflow-x: hidden;
+
+    .btn {
+        padding: 8px 14px;
+        font-size: 13px;
     }
 }

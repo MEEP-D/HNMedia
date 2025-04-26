@@ -482,3 +482,251 @@ document.addEventListener('DOMContentLoaded', function() {
     // Set background images from data attributes
     setBackgroundImages();
 });
+// JavaScript cho Mobile Menu
+document.addEventListener('DOMContentLoaded', function() {
+    // Xử lý menu mobile
+    const mobileMenuBtn = document.querySelector('.mobile-menu');
+    const nav = document.querySelector('nav');
+    
+    mobileMenuBtn.addEventListener('click', function() {
+        nav.classList.toggle('active');
+    });
+    
+    // Đóng menu khi click vào liên kết
+    const navLinks = document.querySelectorAll('nav ul li a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            nav.classList.remove('active');
+        });
+    });
+    
+    // Đóng menu khi click ra ngoài
+    document.addEventListener('click', function(event) {
+        if (!event.target.closest('nav') && !event.target.closest('.mobile-menu')) {
+            nav.classList.remove('active');
+        }
+    });
+    
+    // Xử lý hero slider trên mobile (tối ưu cho cảm ứng)
+    const heroSlides = document.querySelectorAll('.hero-slide');
+    const sliderDots = document.querySelector('.slider-dots');
+    const prevBtn = document.querySelector('.slider-arrow.prev');
+    const nextBtn = document.querySelector('.slider-arrow.next');
+    let currentSlide = 0;
+    
+    // Tạo nút dots cho slider
+    heroSlides.forEach((_, index) => {
+        const dot = document.createElement('button');
+        dot.classList.add('slider-dot');
+        if (index === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToSlide(index));
+        sliderDots.appendChild(dot);
+    });
+    
+    // Thêm sự kiện swipe cho slider
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    const heroSection = document.querySelector('.hero');
+    
+    heroSection.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, false);
+    
+    heroSection.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, false);
+    
+    function handleSwipe() {
+        if (touchEndX < touchStartX) {
+            // Swipe trái
+            nextSlide();
+        } else if (touchEndX > touchStartX) {
+            // Swipe phải
+            prevSlide();
+        }
+    }
+    
+    // Điều hướng slider
+    function goToSlide(index) {
+        heroSlides.forEach(slide => slide.classList.remove('active'));
+        document.querySelectorAll('.slider-dot').forEach(dot => dot.classList.remove('active'));
+        
+        heroSlides[index].classList.add('active');
+        document.querySelectorAll('.slider-dot')[index].classList.add('active');
+        currentSlide = index;
+    }
+    
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % heroSlides.length;
+        goToSlide(currentSlide);
+    }
+    
+    function prevSlide() {
+        currentSlide = (currentSlide - 1 + heroSlides.length) % heroSlides.length;
+        goToSlide(currentSlide);
+    }
+    
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+    
+    // Tự động chuyển slide
+    setInterval(nextSlide, 5000);
+    
+    // Testimonial slider cho mobile
+    const testimonialSlides = document.querySelectorAll('.testimonial-slide');
+    const testimonialPrevBtn = document.querySelector('.testimonial-btn.prev-btn');
+    const testimonialNextBtn = document.querySelector('.testimonial-btn.next-btn');
+    let currentTestimonial = 0;
+    
+    function showTestimonial(index) {
+        // Ẩn tất cả slides
+        testimonialSlides.forEach(slide => {
+            slide.style.display = 'none';
+        });
+        
+        // Hiển thị slide hiện tại
+        testimonialSlides[index].style.display = 'block';
+    }
+    
+    // Thiết lập ban đầu
+    showTestimonial(currentTestimonial);
+    
+    // Xử lý nút Next
+    testimonialNextBtn.addEventListener('click', () => {
+        currentTestimonial = (currentTestimonial + 1) % testimonialSlides.length;
+        showTestimonial(currentTestimonial);
+    });
+    
+    // Xử lý nút Prev
+    testimonialPrevBtn.addEventListener('click', () => {
+        currentTestimonial = (currentTestimonial - 1 + testimonialSlides.length) % testimonialSlides.length;
+        showTestimonial(currentTestimonial);
+    });
+    
+    // Xử lý swipe cho testimonial
+    const testimonialContainer = document.querySelector('.testimonial-container');
+    let testimonialTouchStartX = 0;
+    let testimonialTouchEndX = 0;
+    
+    testimonialContainer.addEventListener('touchstart', (e) => {
+        testimonialTouchStartX = e.changedTouches[0].screenX;
+    }, false);
+    
+    testimonialContainer.addEventListener('touchend', (e) => {
+        testimonialTouchEndX = e.changedTouches[0].screenX;
+        handleTestimonialSwipe();
+    }, false);
+    
+    function handleTestimonialSwipe() {
+        if (testimonialTouchEndX < testimonialTouchStartX) {
+            // Swipe trái - next
+            currentTestimonial = (currentTestimonial + 1) % testimonialSlides.length;
+            showTestimonial(currentTestimonial);
+        } else if (testimonialTouchEndX > testimonialTouchStartX) {
+            // Swipe phải - prev
+            currentTestimonial = (currentTestimonial - 1 + testimonialSlides.length) % testimonialSlides.length;
+            showTestimonial(currentTestimonial);
+        }
+    }
+    
+    // Xử lý Feedback carousel
+    const track = document.querySelector('.carousel-track');
+    const slides = Array.from(track.children);
+    const nextButton = document.querySelector('.carousel-button.next');
+    const prevButton = document.querySelector('.carousel-button.prev');
+    const dotsNav = document.querySelector('.carousel-nav');
+    const dots = Array.from(dotsNav.children);
+    
+    // Đặt vị trí các slides
+    const slideWidth = slides[0].getBoundingClientRect().width;
+    
+    const setSlidePosition = (slide, index) => {
+        slide.style.left = slideWidth * index + 'px';
+    };
+    
+    slides.forEach(setSlidePosition);
+    
+    const moveToSlide = (track, currentSlide, targetSlide) => {
+        track.style.transform = 'translateX(-' + targetSlide.style.left + ')';
+        currentSlide.classList.remove('current-slide');
+        targetSlide.classList.add('current-slide');
+    };
+    
+    const updateDots = (currentDot, targetDot) => {
+        currentDot.classList.remove('active');
+        targetDot.classList.add('active');
+    };
+    
+    // Click vào nút prev
+    prevButton.addEventListener('click', e => {
+        const currentSlide = track.querySelector('.current-slide');
+        const prevSlide = currentSlide.previousElementSibling || slides[slides.length - 1];
+        const currentDot = dotsNav.querySelector('.active');
+        const prevDot = currentDot.previousElementSibling || dots[dots.length - 1];
+        
+        moveToSlide(track, currentSlide, prevSlide);
+        updateDots(currentDot, prevDot);
+    });
+    
+    // Click vào nút next
+    nextButton.addEventListener('click', e => {
+        const currentSlide = track.querySelector('.current-slide');
+        const nextSlide = currentSlide.nextElementSibling || slides[0];
+        const currentDot = dotsNav.querySelector('.active');
+        const nextDot = currentDot.nextElementSibling || dots[0];
+        
+        moveToSlide(track, currentSlide, nextSlide);
+        updateDots(currentDot, nextDot);
+    });
+    
+    // Click vào nav dots
+    dotsNav.addEventListener('click', e => {
+        const targetDot = e.target.closest('button');
+        
+        if (!targetDot) return;
+        
+        const currentSlide = track.querySelector('.current-slide');
+        const currentDot = dotsNav.querySelector('.active');
+        const targetIndex = dots.findIndex(dot => dot === targetDot);
+        const targetSlide = slides[targetIndex];
+        
+        moveToSlide(track, currentSlide, targetSlide);
+        updateDots(currentDot, targetDot);
+    });
+    
+    // Xử lý form contact validate trên mobile
+    const contactForm = document.getElementById('contactForm');
+    
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            // Cập nhật trường _replyto
+            document.getElementById('replyTo').value = email;
+            
+            // Simple validation
+            if (!name || !email || !phone || !subject || !message) {
+                alert('Vui lòng điền đầy đủ thông tin');
+                return false;
+            }
+            
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Vui lòng nhập email hợp lệ');
+                return false;
+            }
+            
+            // Submit form
+            contactForm.submit();
+        });
+    }
+});
