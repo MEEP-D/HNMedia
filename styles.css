@@ -904,7 +904,7 @@ body {
         }
         
         .logo span {
-            color: var(--secondary-color);
+            color: black;
         }
         
         nav ul {
