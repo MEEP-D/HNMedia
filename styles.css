@@ -1,3 +1,81 @@
+.popup-notification {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    z-index: 1000;
+    text-align: center;
+    display: none;
+    min-width: 300px;
+}
+
+.popup-notification.show {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+.popup-icon {
+    font-size: 50px;
+    margin-bottom: 20px;
+    color: #4CAF50;
+}
+
+.popup-title {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.popup-message {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.popup-button {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+.popup-button:hover {
+    background: #45a049;
+}
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+    display: none;
+}
+
+.popup-overlay.show {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
 /* Section Videos */
 .videos-container {
     position: relative;
@@ -1234,3 +1312,52 @@
         .slider-arrow:hover {
             background: var(--primary-color, #ff5e3a);
         }
+
+/* Form Styles */
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+}
+
+textarea.form-input {
+    min-height: 120px;
+    resize: vertical;
+}
+
+button[type="submit"] {
+    background: #4CAF50;
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+button[type="submit"]:hover {
+    background: #45a049;
+}
+
+button[type="submit"]:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+}
