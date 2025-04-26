@@ -205,98 +205,154 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Form Handling with SMTP.js
-    const contactForm = document.getElementById('contactForm');
-    if (!contactForm) {
-        console.error('Contact form not found');
-        return;
-    }
-
-    const submitButton = contactForm.querySelector('button[type="submit"]');
-    const popup = document.querySelector('.popup-notification');
-    const overlay = document.querySelector('.popup-overlay');
-    const closeBtn = popup.querySelector('.popup-button');
-
-    function showPopup(message, isSuccess = true) {
-        if (!popup || !overlay) return;
-        popup.querySelector('.popup-title').textContent = isSuccess ? 'Gửi thành công!' : 'Lỗi';
-        popup.querySelector('.popup-message').textContent = isSuccess 
-            ? 'Cảm ơn bạn đã liên hệ. Chúng tôi sẽ phản hồi trong thời gian sớm nhất.'
-            : message;
-        popup.querySelector('.popup-icon').textContent = isSuccess ? '✓' : '✗';
-        popup.classList.add('show');
-        overlay.classList.add('show');
-    }
-
-    function hidePopup() {
-        if (!popup || !overlay) return;
-        popup.classList.remove('show');
-        overlay.classList.remove('show');
-    }
-
-    if (closeBtn) closeBtn.addEventListener('click', hidePopup);
-    if (overlay) overlay.addEventListener('click', hidePopup);
-
-    function validateForm(name, email, phone) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const phoneRegex = /^\d{10,11}$/;
-        if (!name.trim()) return 'Vui lòng nhập họ và tên';
-        if (!emailRegex.test(email)) return 'Vui lòng nhập email hợp lệ';
-        if (!phoneRegex.test(phone)) return 'Vui lòng nhập số điện thoại hợp lệ (10-11 số)';
-        return null;
-    }
-
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
+    document.addEventListener('DOMContentLoaded', function() {
+        const contactForm = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const popup = document.getElementById('popup');
+        const popupIcon = document.getElementById('popupIcon');
+        const popupTitle = document.getElementById('popupTitle');
+        const popupMessage = document.getElementById('popupMessage');
+        const popupCloseBtn = document.getElementById('popupCloseBtn');
     
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const phone = document.getElementById('phone').value;
-        const message = document.getElementById('message').value;
-    
-        // Validate form
-        const validationError = validateForm(name, email, phone);
-        if (validationError) {
-            showPopup(validationError, false);
-            return;
+        // Hàm hiển thị popup
+        function showPopup(isSuccess, message) {
+            if (isSuccess) {
+                popupIcon.textContent = '✓';
+                popupTitle.textContent = 'Gửi thành công!';
+                popupMessage.textContent = message || 'Cảm ơn bạn đã liên hệ. Chúng tôi sẽ phản hồi sớm nhất.';
+                popupIcon.style.color = '#4CAF50';
+            } else {
+                popupIcon.textContent = '✗';
+                popupTitle.textContent = 'Lỗi!';
+                popupMessage.textContent = message || 'Có lỗi xảy ra khi gửi thông tin.';
+                popupIcon.style.color = '#f44336';
+            }
+            popup.style.display = 'block';
         }
     
-        // Disable button
-        submitButton.disabled = true;
-        const originalBtnText = submitButton.textContent;
-        submitButton.textContent = 'Đang gửi...';
+        // Đóng popup
+        popupCloseBtn.addEventListener('click', function() {
+            popup.style.display = 'none';
+        });
     
-        // Send email
-        Email.send({
-            SecureToken: "f60ead9f-0496-4851-97f0-a999c606fc3a", // Thay bằng token thực
-            Host: "smtp.elasticemail.com",
-            Username: "acduong4567@gmail.com",
-            Password : "BFC5C3E86D1E25797BBA7F0FE5FA0BF58E2C",
-            To: "acduong4567@gmail.com",
-            From: "21111061398@hunre.edu.vn",
-            Subject: `HN-Media Liên hệ mới từ ${name}`,
-            Body: `
-                <h2>Thông tin liên hệ</h2>
-                <p><strong>Tên:</strong> ${name}</p>
-                <p><strong>Email:</strong> ${email}</p>
-                <p><strong>Điện thoại:</strong> ${phone}</p>
-                <p><strong>Nội dung:</strong> ${message}</p>
-            `,
-            IsHtml: true
-        }).then(function(response) {
-            console.log("Response:", response);
-            if (response.includes("OK")) {
-                showPopup();
-                contactForm.reset();
-            } else {
-                throw new Error(response);
-            }
-        }).catch(function(error) {
-            console.error("Error:", error);
-            showPopup("Lỗi gửi email: " + error.message, false);
-        }).finally(function() {
-            submitButton.disabled = false;
-            submitButton.textContent = originalBtnText;
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const originalBtnText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Đang gửi...';
+            
+            fetch(this.action, {
+                method: 'POST',
+                body: new FormData(contactForm),
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    showPopup(true); // Hiển thị popup thành công
+            contactForm.reset(); // Reset form
+            return response.json(); // Chỉ cần thiết nếu bạn muốn xử lý thêm
+                } else {
+                    throw new Error('Formspree returned status: ' + response.status);
+                }
+            })
+            .catch(error => {
+                showPopup(false, error.message);
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalBtnText;
+            });
         });
     });
 });
+//     const submitButton = contactForm.querySelector('button[type="submit"]');
+//     const popup = document.querySelector('.popup-notification');
+//     const overlay = document.querySelector('.popup-overlay');
+//     const closeBtn = popup.querySelector('.popup-button');
+
+//     function showPopup(message, isSuccess = true) {
+//         if (!popup || !overlay) return;
+//         popup.querySelector('.popup-title').textContent = isSuccess ? 'Gửi thành công!' : 'Lỗi';
+//         popup.querySelector('.popup-message').textContent = isSuccess 
+//             ? 'Cảm ơn bạn đã liên hệ. Chúng tôi sẽ phản hồi trong thời gian sớm nhất.'
+//             : message;
+//         popup.querySelector('.popup-icon').textContent = isSuccess ? '✓' : '✗';
+//         popup.classList.add('show');
+//         overlay.classList.add('show');
+//     }
+
+//     function hidePopup() {
+//         if (!popup || !overlay) return;
+//         popup.classList.remove('show');
+//         overlay.classList.remove('show');
+//     }
+
+//     if (closeBtn) closeBtn.addEventListener('click', hidePopup);
+//     if (overlay) overlay.addEventListener('click', hidePopup);
+
+//     function validateForm(name, email, phone) {
+//         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+//         const phoneRegex = /^\d{10,11}$/;
+//         if (!name.trim()) return 'Vui lòng nhập họ và tên';
+//         if (!emailRegex.test(email)) return 'Vui lòng nhập email hợp lệ';
+//         if (!phoneRegex.test(phone)) return 'Vui lòng nhập số điện thoại hợp lệ (10-11 số)';
+//         return null;
+//     }
+
+//     contactForm.addEventListener('submit', function(e) {
+//         e.preventDefault();
+    
+//         const name = document.getElementById('name').value;
+//         const email = document.getElementById('email').value;
+//         const phone = document.getElementById('phone').value;
+//         const message = document.getElementById('message').value;
+    
+//         // Validate form
+//         const validationError = validateForm(name, email, phone);
+//         if (validationError) {
+//             showPopup(validationError, false);
+//             return;
+//         }
+    
+//         // Disable button
+//         submitButton.disabled = true;
+//         const originalBtnText = submitButton.textContent;
+//         submitButton.textContent = 'Đang gửi...';
+    
+//         // Send email
+//         Email.send({
+//             SecureToken: "f60ead9f-0496-4851-97f0-a999c606fc3a", // Thay bằng token thực
+//             Host: "smtp.elasticemail.com",
+//             Username: "acduong4567@gmail.com",
+//             Password : "BFC5C3E86D1E25797BBA7F0FE5FA0BF58E2C",
+//             To: "acduong4567@gmail.com",
+//             From: "21111061398@hunre.edu.vn",
+//             Subject: `HN-Media Liên hệ mới từ ${name}`,
+//             Body: `
+//                 <h2>Thông tin liên hệ</h2>
+//                 <p><strong>Tên:</strong> ${name}</p>
+//                 <p><strong>Email:</strong> ${email}</p>
+//                 <p><strong>Điện thoại:</strong> ${phone}</p>
+//                 <p><strong>Nội dung:</strong> ${message}</p>
+//             `,
+//             IsHtml: true
+//         }).then(function(response) {
+//             console.log("Response:", response);
+//             if (response.includes("OK")) {
+//                 showPopup();
+//                 contactForm.reset();
+//             } else {
+//                 throw new Error(response);
+//             }
+//         }).catch(function(error) {
+//             console.error("Error:", error);
+//             showPopup("Lỗi gửi email: " + error.message, false);
+//         }).finally(function() {
+//             submitButton.disabled = false;
+//             submitButton.textContent = originalBtnText;
+//         });
+//     });
+// });

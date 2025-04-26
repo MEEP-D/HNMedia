@@ -17,14 +17,6 @@
     <script src="./script.js"></script>
 </head>
 <body>
-    <!-- Popup Notification -->
-    <div class="popup-overlay"></div>
-    <div class="popup-notification">
-        <div class="popup-icon">✓</div>
-        <div class="popup-title">Gửi thành công!</div>
-        <div class="popup-message">Cảm ơn bạn đã liên hệ. Chúng tôi sẽ phản hồi trong thời gian sớm nhất.</div>
-        <button class="popup-button">Đóng</button>
-    </div>
     <!-- Header -->
     <header>
         <div class="container header-container">
@@ -635,8 +627,37 @@
                         <a href="https://zalo.me/your-number" class="social-link" target="_blank">z</a>
                     </div>
                 </div>
-                
                 <div class="contact-form">
+                    <h3>Gửi Thông Tin Liên Hệ</h3>
+                    <form id="contactForm" action="https://formspree.io/f/mwpopowr" method="POST">
+                        <div class="form-group">
+                            <input type="text" class="form-input" id="name" name="name" placeholder="Họ và tên" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-input" id="email" name="email" placeholder="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" class="form-input" id="phone" name="phone" placeholder="Số điện thoại" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-input" id="message" name="message" placeholder="Nội dung tin nhắn" required></textarea>
+                        </div>
+                        <!-- Thêm input ẩn cho reply-to (tùy chọn) -->
+                        <input type="hidden" name="_replyto" id="replyTo">
+                        <!-- Thêm honeypot field chống spam (tùy chọn) -->
+                        <input type="text" name="_gotcha" style="display:none">
+                        <button type="submit" class="btn" id="submitBtn">Gửi Ngay</button>
+                    </form>
+                </div>
+                <div class="popup-notification" id="popup" style="display: none;">
+                    <div class="popup-content">
+                        <span class="popup-icon" id="popupIcon">✓</span>
+                        <h3 class="popup-title" id="popupTitle">Gửi thành công!</h3>
+                        <p class="popup-message" id="popupMessage">Cảm ơn bạn đã liên hệ. Chúng tôi sẽ phản hồi sớm nhất.</p>
+                        <button class="popup-close-btn" id="popupCloseBtn">Đóng</button>
+                    </div>
+                </div>
+                <!-- <div class="contact-form">
                     <h3>Gửi Thông Tin Liên Hệ</h3>
                     <form id="contactForm">
                         <div class="form-group">
@@ -653,7 +674,7 @@
                         </div>
                         <button type="submit" class="btn" id="submitBtn">Gửi Ngay</button>
                     </form>
-                </div>
+                </div> -->
             </div>
         </div>
     </section>
