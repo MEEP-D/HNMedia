@@ -90,17 +90,6 @@ let currentSlide = 0;
 const heroSlides = document.querySelectorAll('.hero-slide');
 const dotsContainer = document.querySelector('.slider-dots');
 let autoSlideInterval;
-
-function createDots() {
-    slides.forEach((_, index) => {
-        const dot = document.createElement('div');
-        dot.classList.add('slider-dot');
-        if (index === 0) dot.classList.add('active');
-        dot.addEventListener('click', () => goToSlide(index));
-        dotsContainer.appendChild(dot);
-    });
-}
-
 function goToSlide(index) {
     slides[currentSlide].classList.remove('active');
     dotsContainer.children[currentSlide].classList.remove('active');
@@ -143,17 +132,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (slides.length === 0) {
         console.warn('No slides found in hero section');
         return;
-    }
-
-    function createDots() {
-        if (!dotsContainer) return;
-        slides.forEach((_, index) => {
-            const dot = document.createElement('div');
-            dot.classList.add('slider-dot');
-            if (index === 0) dot.classList.add('active');
-            dot.addEventListener('click', () => goToSlide(index));
-            dotsContainer.appendChild(dot);
-        });
     }
 
     function goToSlide(index) {
@@ -273,7 +251,7 @@ document.addEventListener('DOMContentLoaded', function() {
             Username: "acduong4567@gmail.com",
             Password : "BFC5C3E86D1E25797BBA7F0FE5FA0BF58E2C",
             To: "acduong4567@gmail.com",
-            From: '"HN-Media" <21111061398@hunre.edu.vn>',
+            From: "21111061398@hunre.edu.vn",
             Subject: `HN-Media Liên hệ mới từ ${name}`,
             Body: `
                 <h2>Thông tin liên hệ</h2>
