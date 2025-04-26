@@ -1257,7 +1257,19 @@ body {
     display: flex;
     gap: 15px;
 }
+/* ... existing code ... */
 
+/* Social Media Brand Colors */
+.social-link.facebook-link {
+    background-color: #1877f2; /* Facebook blue color */
+}
+
+.social-link.facebook-link:hover {
+    background-color: #0e5fca; /* Darker Facebook blue on hover */
+    transform: translateY(-3px);
+}
+
+/* ... existing code ... */
 .social-link {
     display: flex;
     justify-content: center;
